@@ -1,1 +1,2 @@
 # proyect-ads
+# This collaborative project aims to develop a comprehensive web platform and API for providing detailed information about various cryptocurrencies. Hosted on PythonAnywhere, the platform will leverage a NoSQL database to accommodate the dynamic nature of the cryptocurrency market. Through extensive research and development, the project will offer users a user-friendly interface to browse, search, and filter cryptocurrency data. Additionally, an API will be provided to allow seamless integration with other applications.
