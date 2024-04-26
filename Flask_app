@@ -1,0 +1,35 @@
+from flask import Flask, render_template, request
+from tinydb import TinyDB, Query
+import pandas as pd
+
+app = Flask(_name_)
+db = TinyDB('crypto_info_db.json')
+df = pd.read_excel('crypto_info.xlsx')
+data = df.to_dict(orient='records')
+db.insert_multiple(data)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        search_input = request.form['search_input'].strip()  # Remove leading/trailing spaces
+        if search_input:
+            # Query the database to find the cryptocurrency information
+            Crypto = Query()
+            currencies = db.search((Crypto.Symbol == search_input) | (Crypto.Name == search_input))
+            # Use a set to store unique symbols
+            unique_symbols = set(currency['Symbol'] for currency in currencies)
+            unique_currencies = []
+            for symbol in unique_symbols:
+                currency_info = db.get(Crypto.Symbol == symbol)
+                unique_currencies.append(currency_info)
+            if unique_currencies:
+                return render_template('index.html', currency=unique_currencies)
+            else:
+                return render_template('index.html', message="No results found for '{}'.".format(search_input))
+        else:
+            return render_template('index.html', message="Please enter a symbol or name.")
+    else:
+        return render_template('index.html')
+
+if _name_ == '_main_':
+    app.run(debug=True)
