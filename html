@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="submit"] {
+            padding: 8px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p.message {
+            text-align: center;
+            color: #dc3545;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+        .symbol-column { background-color: #cfd8dc; }
+        .name-column { background-color: #ffcdd2; }
+        .blockchain-column { background-color: #dcedc8; }
+        .smart-contract-column { background-color: #b3e5fc; }
+        .founders-column { background-color: #ffcc80; }
+    </style>
+</head>
+<body>
+    <h1>Cryptocurrency Search</h1>
+
+    <form action="/" method="POST">
+        <label for="search_input">Search by Symbol or Name:</label>
+        <input type="text" name="search_input" placeholder="Enter symbol or name">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if message %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+
+    {% if currency %}
+    <h2>Results:</h2>
+    <table>
+        <tr>
+            <th class="symbol-column">Symbol</th>
+            <th class="name-column">Name</th>
+            <th class="blockchain-column">Blockchain</th>
+            <th class="smart-contract-column">Smart Contract</th>
+            <th class="founders-column">Founders</th>
+        </tr>
+        {% for item in currency %}
+        <tr>
+            <td class="symbol-column">{{ item.Symbol }}</td>
+            <td class="name-column">{{ item.Name }}</td>
+            <td class="blockchain-column">{{ item.Blockchain }}</td>
+            <td class="smart-contract-column">{{ item['Smart Contract'] }}</td>
+            <td class="founders-column">{{ item.Founders }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
